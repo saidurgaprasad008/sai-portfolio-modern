@@ -1,4 +1,7 @@
+"use client";
+
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
 const navLinks = [
   { label: "Home", href: "#home" },
@@ -8,8 +11,52 @@ const navLinks = [
   { label: "Contact", href: "#contact" },
 ];
 
-export default function Home() {
+function ThemeToggle({
+  light,
+  onToggle,
+}: {
+  light: boolean;
+  onToggle: () => void;
+}) {
   return (
+    <button
+      type="button"
+      onClick={onToggle}
+      aria-label={light ? "Switch to dark theme" : "Switch to light theme"}
+      className="ml-2 flex h-9 w-9 items-center justify-center rounded-full border border-white/[0.10] text-sm text-white/65 transition-all duration-300 hover:border-[#c18a57]/50 hover:text-[#c18a57]"
+    >
+      {light ? "☾" : "☼"}
+    </button>
+  );
+}
+
+export default function Home() {
+  const [light, setLight] = useState(false);
+
+  useEffect(() => {
+    const saved = localStorage.getItem("theme");
+
+    if (saved === "light") {
+      document.documentElement.classList.add("light");
+      setLight(true);
+    }
+  }, []);
+
+  const toggleTheme = () => {
+    const nextLight = !light;
+
+    setLight(nextLight);
+
+    if (nextLight) {
+      document.documentElement.classList.add("light");
+      localStorage.setItem("theme", "light");
+    } else {
+      document.documentElement.classList.remove("light");
+      localStorage.setItem("theme", "dark");
+    }
+  };
+
+return (
     <main className="min-h-screen overflow-x-hidden bg-[#050505] text-white">
       {/* Ambient background glow */}
       <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
@@ -42,6 +89,9 @@ export default function Home() {
           </div>
 
           {/* CTA */}
+          <div className="flex items-center gap-2">
+          <ThemeToggle light={light} onToggle={toggleTheme} />
+
           <a
             href="#contact"
             className="group inline-flex items-center gap-2 rounded-full border border-[#b77b45]/60 px-5 py-2.5 text-sm text-white transition-all duration-300 hover:border-[#d6a16a] hover:bg-[#b77b45]/10"
@@ -51,6 +101,7 @@ export default function Home() {
               ↗
             </span>
           </a>
+        </div>
         </div>
       </nav>
 
