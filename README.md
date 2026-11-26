@@ -1,16 +1,18 @@
 # Sai Durga Prasad — Portfolio
 
-3D cinematic portfolio of Velagaleti Sai Durga Prasad, founder of VRLS Solutions.
+3D portfolio of Sai Durga Prasad, a junior Frontend / Web Developer.
 
 - Single static page (`index.html`), no build step
 - 3D scene built with Three.js (loaded from cdnjs)
-- Light mode (mint + teal) and dark mode (black + brown + copper), remembered per visitor
+- Light and dark themes, remembered per visitor
 - `_headers` adds security headers on Cloudflare Pages
 
 ## Deploy (Cloudflare Pages)
 
 Framework preset: **None** · Build command: *(empty)* · Build output directory: **/**
 
+Place `resume.pdf` in the same directory as `index.html` so the Download Resume links resolve.
+
 ## Edit
 
-Open `index.html` in any editor. Colours are CSS variables at the top of the `<style>` block.
+Open `index.html` in any editor.
